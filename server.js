@@ -13,7 +13,7 @@ app.use(express.json({ limit: "5mb" }));
 app.use(urlencoded({ extended: true }));
 app.use(
 	cors({
-		origin: ["https://precily-devtem.netlify.app"],
+		origin: "*",
 	})
 );
 app.use("/api", require("./routes/auth"));
