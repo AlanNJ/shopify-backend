@@ -32,6 +32,7 @@ const userSchema = new Schema(
 	},
 	{
 		timestamps: true,
-	}
+	},
+	{ cart: [] }
 );
 module.exports = mongoose.model("User", userSchema);
