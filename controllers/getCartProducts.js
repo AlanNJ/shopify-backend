@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const getCartProducts = async (req, res) => {
-	const post = req.body;
+	const { post, id, price } = req.body;
 	console.log(req.user.id);
 	const user = new User({ cart: post });
 	user.save();
