@@ -18,16 +18,17 @@ const getCartProducts = async (req, res) => {
 	//  res.json({ user });
 	try {
 		const user = await User.find({ _id: id });
+		//console.log(user);
 
 		user.forEach((item) => {
 			item.cart.forEach((i) => {
 				//console.log(i.post._id);
 				if (i.post._id == req.body.post._id) {
-					res.status(400).send({ message: "sorry,Item is already in cart" });
-					console.log("hello");
-				} else {
+					return res.json({ message: "sorry,Item is already in cart" });
 					//console.log("hello");
-					User.findByIdAndUpdate(
+				} else {
+					console.log("hellooo");
+					const user = User.findByIdAndUpdate(
 						{ _id: id },
 						{
 							$push: {
@@ -38,9 +39,14 @@ const getCartProducts = async (req, res) => {
 							},
 						},
 						{ new: true }
-					).then((result) => {
-						return res.status(200).send({ message: "successfull", result });
+						// (err, doc) => {
+						// 	if (err) return res.status(400).send("failed");
+						// 	return console.log(doc);
+						// }
+					).then((doc) => {
+						return res.json(doc);
 					});
+					console.log(user);
 				}
 			});
 		});
@@ -49,3 +55,7 @@ const getCartProducts = async (req, res) => {
 	}
 };
 module.exports = getCartProducts;
+
+////.then((result, err) => {
+//	return res.status(200).send("successfull", result);
+//});
