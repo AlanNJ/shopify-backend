@@ -26,13 +26,16 @@ const userSchema = new Schema(
 			min: 8,
 			max: 16,
 		},
+		cart: {
+			type: Array,
+			default: [],
+		},
 
 		about: {},
 		photo: String,
 	},
 	{
 		timestamps: true,
-	},
-	{ cart: [] }
+	}
 );
 module.exports = mongoose.model("User", userSchema);
