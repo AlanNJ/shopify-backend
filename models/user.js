@@ -30,6 +30,10 @@ const userSchema = new Schema(
 			type: Array,
 			default: [],
 		},
+		newCart: {
+			type: Array,
+			default: [],
+		},
 
 		about: {},
 		photo: String,
