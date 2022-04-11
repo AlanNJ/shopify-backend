@@ -68,8 +68,8 @@ const getCartProducts = async (req, res) => {
 							date: Date.now(),
 						},
 					},
-				},
-				{ new: true }
+				}
+				//{ new: true }
 			).then((resp) => {
 				console.log(resp);
 				return res.status(200).send({

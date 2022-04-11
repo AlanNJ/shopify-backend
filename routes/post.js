@@ -13,6 +13,6 @@ router.post("/upload-post", uploadPost);
 router.get("/get-single-post/:_id", getSinglePost);
 router.post("/add-to-cart", getCartProducts);
 router.get("/get-cart-items/:_id", getCartItem);
-router.delete("/remove-item/:_id", removeFromCart);
+router.get("/remove-item/:_id", removeFromCart);
 
 module.exports = router;
