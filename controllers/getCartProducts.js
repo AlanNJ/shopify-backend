@@ -2,9 +2,10 @@ const User = require("../models/user");
 const getCartProducts = async (req, res) => {
 	const id = req.body.id;
 	const postId = req.body.post._id;
-	console.log(id, postId);
+
 	const post = req.body.post;
 	var duplicate;
+	console.log(post);
 
 	//console.log(id);
 

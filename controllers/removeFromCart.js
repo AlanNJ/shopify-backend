@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const removeFromCart = async (req, res) => {
 	const id = req.params._id;
+	const user_id = req.body.headers.id;
 
 	//console.log(req.headers.id);
 	const user = await User.findOne({ _id: req.body.headers.id });
@@ -12,22 +13,20 @@ const removeFromCart = async (req, res) => {
 	//  	}
 	//  });
 
-	User.updateOne(
-		{ _id: "6252d87e010b3f94adcf4e41" },
+	User.findOneAndUpdate(
+		{ _id: user_id },
 		{
-			$pull: {
-				newCart: {
-					"post.id": "6249e216c1e3b6ae2d4aa273",
-				},
-			},
+			$pull: { newCart: { "post._id": id } },
 		},
-		{ new: true }
-	)
-		.exec()
-		.then((res) =>
-			User.findOne({ _id: "6252d87e010b3f94adcf4e41" }).then((res) =>
-				console.log(res)
-			)
-		);
+		{ new: true },
+		(err, userInfo) => {
+			console.log(userInfo);
+			let cart = userInfo.cart;
+			let array = cart.map((item) => {
+				console.log(item.id);
+			});
+		}
+	);
 };
+
 module.exports = removeFromCart;
