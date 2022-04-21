@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const removeFromCart = async (req, res) => {
-	const id = req.params._id;
+	const date = req.params._id;
 	const user_id = req.body.headers.id;
 
 	//console.log(req.headers.id);
@@ -16,7 +16,7 @@ const removeFromCart = async (req, res) => {
 	User.findOneAndUpdate(
 		{ _id: user_id },
 		{
-			$pull: { newCart: { "post.date": 1650554968730 } },
+			$pull: { newCart: { date: Number(date) } },
 		},
 		{ new: true },
 		(err, userInfo) => {
