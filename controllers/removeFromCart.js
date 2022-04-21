@@ -16,7 +16,7 @@ const removeFromCart = async (req, res) => {
 	User.findOneAndUpdate(
 		{ _id: user_id },
 		{
-			$pull: { newCart: { "post._id": id } },
+			$pull: { newCart: { "post.date": 1650554968730 } },
 		},
 		{ new: true },
 		(err, userInfo) => {
