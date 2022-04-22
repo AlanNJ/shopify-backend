@@ -42,45 +42,41 @@ const getCartProducts = async (req, res) => {
 				return res
 					.status(200)
 					.send({ message: "Item added to cart successfully", resp });
-				// res.status(200).send({
-				// 	message: "Item added to cart successfully",
-				// 	cart: user.cart,
-				// });/
-			});
-		} else {
-			console.log(duplicate);
-			user.newCart.forEach((element) => {
-				if (element.post._id == req.body.post._id) {
-					duplicate = true;
-				} else {
-					duplicate = false;
-				}
-			});
-		}
-		console.log(duplicate);
-		if (duplicate == false) {
-			User.findOneAndUpdate(
-				{ _id: id },
-				{
-					$push: {
-						newCart: {
-							post: post,
 
-							date: Date.now(),
-						},
-					},
-				}
-				//{ new: true }
-			).then((resp) => {
-				console.log(resp);
-				return res.status(200).send({
-					message: "Item added to cart successfully",
-					cart: resp.newCart,
-				});
 				// res.status(200).send({
 				// 	message: "Item added to cart successfully",
 				// 	cart: user.cart,
 				// });/
+			});
+		} else if (user.newCart.length > 0) {
+			user.newCart.forEach((element) => {
+				if (element.post._id != req.body.post._id) {
+					User.findOneAndUpdate(
+						{ _id: id },
+						{
+							$push: {
+								newCart: {
+									post: post,
+
+									date: Date.now(),
+								},
+							},
+						}
+						//{ new: true }
+					).then((resp) => {
+						console.log(resp);
+						return res.status(200).send({
+							message: "Item added to cart successfully",
+							cart: resp.newCart,
+						});
+						// res.status(200).send({
+						// 	message: "Item added to cart successfully",
+						// 	cart: user.cart,
+						// });/
+					});
+				} else {
+					return res.json("Item already in cart");
+				}
 			});
 		}
 	} catch (err) {

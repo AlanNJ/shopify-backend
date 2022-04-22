@@ -3,7 +3,7 @@ const removeFromCart = async (req, res) => {
 	const date = req.params._id;
 	const user_id = req.body.headers.id;
 
-	//console.log(req.headers.id);
+	console.log(date);
 	const user = await User.findOne({ _id: req.body.headers.id });
 	//console.log(user);
 
@@ -18,15 +18,13 @@ const removeFromCart = async (req, res) => {
 		{
 			$pull: { newCart: { date: Number(date) } },
 		},
-		{ new: true },
-		(err, userInfo) => {
-			console.log(userInfo);
-			let cart = userInfo.cart;
-			let array = cart.map((item) => {
-				console.log(item.id);
-			});
-		}
-	);
+		{ new: true }
+	).then((result) => {
+		res.status(200).send({
+			success: true,
+			message: "Item deleted successfully",
+		});
+	});
 };
 
 module.exports = removeFromCart;
